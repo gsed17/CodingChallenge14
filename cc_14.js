@@ -1,38 +1,44 @@
 // Task 2: Adding Support Tickets Dynamically
-function createTicket(name, issue, priority) {
-    const ticket = document.createElement("div");
-    ticket.classList.add("ticket-card");
+fdocument.addEventListener("DOMContentLoaded", function () {
+    const ticketContainer = document.getElementById("ticketContainer");
+    const addTicketBtn = document.getElementById("addTicketBtn");
 
-    if (priority.toLowerCase() === "high") {
-        ticket.classList.add("high-priority");
-    }
+    // Event listener for Add Ticket button
+    addTicketBtn.addEventListener("click", function () {
+        const name = prompt("Enter customer name:");
+        const issue = prompt("Enter issue description:");
+        const priority = prompt("Enter priority (Low, Medium, High):");
 
-    const nameElement = document.createElement("h3");
-    nameElement.textContent = name;
+        if (name && issue && priority) {
+            createTicket(name, issue, priority);
+        }
+    });
 
-    const issueElement = document.createElement("p");
-    issueElement.textContent = issue;
+    // Function to create a support ticket
+    function createTicket(name, issue, priority) {
+        const ticket = document.createElement("div");
+        ticket.classList.add("ticket");
 
-    const priorityElement = document.createElement("p");
-    priorityElement.innerHTML = `<strong>Priority:</strong> ${priority}`;
+        if (priority.toLowerCase() === "high") {
+            ticket.classList.add("high-priority");
+        }
 
-    const resolveBtn = document.createElement("button");
-    resolveBtn.textContent = "Resolve";
-    resolveBtn.classList.add("resolve-btn");
+        ticket.innerHTML = `
+            <h3>${name}</h3>
+            <p>${issue}</p>
+            <p><strong>Priority:</strong> ${priority}</p>
+            <button class="resolve-btn">Resolve</button>
+        `;
 
-    ticket.append(nameElement, issueElement, priorityElement, resolveBtn);
-    ticketContainer.appendChild(ticket);
-}
+        // Event listener to remove ticket when resolved
+        ticket.querySelector(".resolve-btn").addEventListener("click", function () {
+            ticket.remove();
+        });
 
-addTicketBtn.addEventListener("click", function () {
-    const name = prompt("Enter Customer Name:");
-    const issue = prompt("Enter Issue Description:");
-    const priority = prompt("Enter Priority (Low, Medium, High):");
-
-    if (name && issue && priority) {
-        createTicket(name, issue, priority);
+        ticketContainer.appendChild(ticket);
     }
 });
+
     // Task 3: Highlighting High Priority Tickets
     function highlightHighPriorityTickets() {
         const tickets = Array.from(document.querySelectorAll(".high-priority"));
