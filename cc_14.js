@@ -33,3 +33,10 @@ addTicketBtn.addEventListener("click", function () {
         createTicket(name, issue, priority);
     }
 });
+    // Task 3: Highlighting High Priority Tickets
+    function highlightHighPriorityTickets() {
+        const tickets = Array.from(document.querySelectorAll(".high-priority"));
+        tickets.forEach(ticket => {
+            ticket.style.border = "3px solid red";
+        });
+    }
