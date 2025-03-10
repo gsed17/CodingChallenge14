@@ -40,3 +40,12 @@ addTicketBtn.addEventListener("click", function () {
             ticket.style.border = "3px solid red";
         });
     }
+    // Task 4: Implementing Ticket Resolution with Event Bubbling
+    ticketContainer.addEventListener("click", function (event) {
+        if (event.target.classList.contains("resolve-btn")) {
+            event.target.parentElement.remove();
+            event.stopPropagation();
+        } else {
+            console.log("Ticket Clicked:", event.target.closest(".ticket-card").querySelector("h3").textContent);
+        }
+    });
